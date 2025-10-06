@@ -43,3 +43,6 @@ dependency-reduced-pom.xml
 
 # Environment variables
 .env
+
+# Docker Compose file
+docker-compose.yml

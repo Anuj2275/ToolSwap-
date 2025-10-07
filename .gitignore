@@ -46,3 +46,6 @@ dependency-reduced-pom.xml
 
 # Docker Compose file
 docker-compose.yml
+
+# Ignore environment-specific properties files
+application-*.properties

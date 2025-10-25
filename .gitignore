@@ -49,3 +49,4 @@ docker-compose.yml
 
 # Ignore environment-specific properties files
 application-*.properties
+application.properties

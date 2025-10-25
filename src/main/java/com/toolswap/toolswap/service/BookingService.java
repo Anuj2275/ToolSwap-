@@ -30,8 +30,7 @@ public class BookingService {
         public Booking createBooking(BookingRequestDTO requestDTO, String borrowerEmail){
             User borrower = userRepository.findByEmail(borrowerEmail)
                     .orElseThrow(()-> new UsernameNotFoundException("Borrower not found"));
-            Tool tool = toolRepository.findById(requestDTO.getToolId())
-                    .orElseThrow(()-> new RuntimeException("Tool not found"));
+            Tool tool = toolRepository.getReferenceById(requestDTO.getToolId());
 
             if(tool.getOwner().getId().equals(borrower.getId())) {
                 throw new IllegalStateException("You cannot book your own tool");

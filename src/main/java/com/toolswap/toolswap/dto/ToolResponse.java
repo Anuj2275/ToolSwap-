@@ -20,6 +20,8 @@ public class ToolResponse {
     public static class OwnerDTO{
         private Long id;
         private String name;
+        private String email;
+
     }
 
 }

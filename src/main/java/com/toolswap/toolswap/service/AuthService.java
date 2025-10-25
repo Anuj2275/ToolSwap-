@@ -1,6 +1,7 @@
 package com.toolswap.toolswap.service;
 
 import com.toolswap.toolswap.dto.RegisterRequest;
+import com.toolswap.toolswap.exception.EmailAlreadyInUseException;
 import com.toolswap.toolswap.model.User;
 import com.toolswap.toolswap.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class AuthService {
 
     public User registerUser(RegisterRequest registerRequest){
         if(userRepository.findByEmail(registerRequest.getEmail()).isPresent()){
-            throw new IllegalStateException("Email already in use");
+            throw new EmailAlreadyInUseException("The email address '" + registerRequest.getEmail() + "' is already in use.");
         }
         User user = new User();
         user.setName(registerRequest.getName());

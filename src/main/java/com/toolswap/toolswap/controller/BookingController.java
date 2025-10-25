@@ -4,6 +4,7 @@ import com.toolswap.toolswap.config.AppUserDetails;
 import com.toolswap.toolswap.dto.BookingRequestDTO;
 import com.toolswap.toolswap.dto.BookingResponsetDTO;
 import com.toolswap.toolswap.dto.BookingStatusUpdateRequestDTO;
+import com.toolswap.toolswap.mapper.BookingMapper;
 import com.toolswap.toolswap.model.Booking;
 import com.toolswap.toolswap.service.BookingService;
 import jakarta.validation.Valid;
@@ -26,13 +27,13 @@ public class BookingController {
     public ResponseEntity<BookingResponsetDTO> createBooking(@Valid @RequestBody BookingRequestDTO request, @AuthenticationPrincipal AppUserDetails userDetails){
         Booking newBooking = bookingService.createBooking(request,userDetails.getUsername());
 
-        return new ResponseEntity<>(converToDto(newBooking), HttpStatus.CREATED);
+        return new ResponseEntity<>(BookingMapper.toDto(newBooking), HttpStatus.CREATED);
     }
 
     @GetMapping("/my-bookings")
     public ResponseEntity<List<BookingResponsetDTO>> getMyBookings(@AuthenticationPrincipal AppUserDetails userDetails){
         List<BookingResponsetDTO> bookings = bookingService.getMyBookings(userDetails.getUsername()).stream()
-                .map(this::converToDto)
+                .map(BookingMapper::toDto)
                 .toList();
 
         return ResponseEntity.ok(bookings);
@@ -46,34 +47,9 @@ public class BookingController {
             ){
         Booking updatedBooking = bookingService.updateBookStatus(bookingId,request.getStatus(),userDetails.getUsername());
 
-        return ResponseEntity.ok(converToDto(updatedBooking));
+        return ResponseEntity.ok(BookingMapper.toDto(updatedBooking));
     }
 
-    private BookingResponsetDTO converToDto(Booking booking) {
-        BookingResponsetDTO dto = new BookingResponsetDTO();
-        dto.setId(booking.getId());
-        dto.setStartDate(booking.getStartDate());
-        dto.setEndDate(booking.getEndDate());
-        dto.setStatus(booking.getStatus());
-        dto.setCreatedAt(booking.getCreatedAt());
 
-        BookingResponsetDTO.ToolResponseDTO toolDto = new BookingResponsetDTO.ToolResponseDTO();
-        toolDto.setId(booking.getTool().getId());
-        toolDto.setName(booking.getTool().getName());
-        toolDto.setImageUrl(booking.getTool().getImageUrl());
-        dto.setTool(toolDto);
-
-        BookingResponsetDTO.UserDTO borrowerDto = new BookingResponsetDTO.UserDTO();
-        borrowerDto.setId(booking.getBorrower().getId());
-        borrowerDto.setName(booking.getBorrower().getName());
-        dto.setBorrower(borrowerDto);
-
-        BookingResponsetDTO.UserDTO ownerDto = new BookingResponsetDTO.UserDTO();
-        ownerDto.setId(booking.getTool().getOwner().getId());
-        ownerDto.setName(booking.getTool().getOwner().getName());
-        dto.setOwner(ownerDto);
-
-        return dto;
-    }
 
 }

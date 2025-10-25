@@ -7,6 +7,7 @@ import com.toolswap.toolswap.dto.RegisterRequest;
 import com.toolswap.toolswap.model.User;
 import com.toolswap.toolswap.service.AuthService;
 import com.toolswap.toolswap.service.JwtService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,14 +30,13 @@ public class AuthController {
 //    private final JwtService jwtService;
 
 //    response entity (wrapper for http res)- three main things --> body,status code, headers
-    @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request){
-       User registeredUser = authService.registerUser(request);
-       String jwtToken = jwtService.generateToken(new AppUserDetails(registeredUser));
+@PostMapping("/register")
+public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
+    User registeredUser = authService.registerUser(request);
+    String jwtToken = jwtService.generateToken(new AppUserDetails(registeredUser));
 
-
-        return ResponseEntity.ok(new AuthResponse(jwtToken,registeredUser.getEmail(),registeredUser.getName()));
-    }
+    return ResponseEntity.ok(new AuthResponse(jwtToken, registeredUser.getId(), registeredUser.getEmail(), registeredUser.getName()));
+}
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request){
@@ -49,6 +49,6 @@ public class AuthController {
 
         String jwtToken = jwtService.generateToken(userDetails);
 
-        return ResponseEntity.ok(new AuthResponse(jwtToken,user.getEmail(),user.getName()));
+        return ResponseEntity.ok(new AuthResponse(jwtToken,user.getId(),user.getEmail(),user.getName()));
     }
 }

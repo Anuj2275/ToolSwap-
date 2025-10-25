@@ -8,4 +8,5 @@ import java.util.List;
 public interface BookingRepository extends JpaRepository<Booking,Long> {
 
     List<Booking> findByBorrowerIdOrToolOwnerId(Long borrowerId, Long ownerId);
+    void deleteAllByToolId(Long toolId);
 }

@@ -31,7 +31,7 @@ public class ImageUploadService {
                 "public_id", publicId,
                 "overwrite", true,
                 "resource_type", "image"
-                // "transformation", new Transformation().width(500).height(500).crop("limit")
+                // "transformation", new Transformation().width(500).height(500).crop("limit") // ill use this later on
         ));
 
         return (String) uploadResult.get("secure_url");

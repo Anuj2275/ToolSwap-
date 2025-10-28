@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom"; // Import useLocation
+import { Link, useNavigate, useLocation } from "react-router-dom"; 
 import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation(); // Get current location
-
-  // --- Mobile Menu State ---
+  const location = useLocation(); 
+  
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  // Close mobile menu whenever the route changes
+  
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location]);
-  // --- End Mobile Menu State ---
-
-  // --- Dark Mode State ---
+  
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem("theme") === "dark" ||
       (!("theme" in localStorage) &&
@@ -36,8 +32,7 @@ const Header = () => {
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
   };
-  // --- End Dark Mode State ---
-
+  
   const handleLogout = () => {
     logout();
     navigate("/login");
@@ -47,12 +42,11 @@ const Header = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // Helper for NavLink styling in mobile menu
   const MobileNavLink = ({ to, children }) => (
     <Link
       to={to}
       className="block px-4 py-3 text-base font-medium text-muted-light dark:text-muted-dark hover:bg-gray-100 dark:hover:bg-slate-700 hover:text-primary dark:hover:text-primary-light rounded-md"
-      onClick={() => setIsMobileMenuOpen(false)} // Close menu on click
+      onClick={() => setIsMobileMenuOpen(false)} 
     >
       {children}
     </Link>

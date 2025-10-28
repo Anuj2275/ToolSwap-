@@ -29,9 +29,9 @@ const EditToolPage = () => {
         const { name, category, description, owner } = response.data;
         if (owner && owner.email) {
           setToolData({ name, category, description });
-          setInitialOwnerEmail(owner.email); // Set the email correctly
+          setInitialOwnerEmail(owner.email);
         } else {
-          throw new Error("Tool data is incomplete."); // Handle missing owner data
+          throw new Error("Tool data is incomplete.");
         }
       } catch (err) {
         setError("Failed to load tool data. It might have been removed.");
@@ -72,9 +72,9 @@ const EditToolPage = () => {
       toast.success("Tool updated successfully!");
       navigate("/my-tools");
     } catch (err) {
-      const message=err.response?.data?.message || "Failed to update tool.";
+      const message = err.response?.data?.message || "Failed to update tool.";
       setError(message);
-      toast.error(message)
+      toast.error(message);
       console.error("Update tool error:", err);
     } finally {
       setIsSubmitting(false);

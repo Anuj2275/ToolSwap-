@@ -58,7 +58,7 @@ public class SecurityConfig {
     }
 
 
-//    dao - def spring sec provider used DB lookup
+//    dao - define spring security provider used DB lookup
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -81,7 +81,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173")); // allow your frontend
+        configuration.setAllowedOrigins(List.of("http://localhost:5173")); // allow the frontend
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true); // important if you're using cookies or auth headers

@@ -165,7 +165,11 @@ const RegisterPage = () => {
                   : "border-border-light dark:border-border-dark focus:ring-primary dark:focus:ring-primary-light"
               }`}
             />
-            {validationErrors.password && <p className="text-xs text-red-600 dark:text-red-400 mt-1">{validationErrors.password}</p>}
+            {validationErrors.password && (
+              <p className="text-xs text-red-600 dark:text-red-400 mt-1">
+                {validationErrors.password}
+              </p>
+            )}
           </div>
           <button
             type="submit"

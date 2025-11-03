@@ -1,6 +1,7 @@
 package com.toolswap.toolswap.service;
 
 import com.cloudinary.Cloudinary;
+import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,8 +31,12 @@ public class ImageUploadService {
         Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap(
                 "public_id", publicId,
                 "overwrite", true,
-                "resource_type", "image"
-                // "transformation", new Transformation().width(500).height(500).crop("limit") // ill use this later on
+                "resource_type", "image",
+                "transformation", new Transformation()
+                        .width(1000)   // Resize to max 1000px width
+                        .height(1000)  // Resize to max 1000px height
+                        .crop("limit") // Keep aspect ratio, just cap size
+                        .quality("auto:good")
         ));
 
         return (String) uploadResult.get("secure_url");

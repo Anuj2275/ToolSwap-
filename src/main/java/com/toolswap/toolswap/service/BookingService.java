@@ -25,6 +25,7 @@ public class BookingService {
         private final UserRepository userRepository;
         private final ToolRepository toolRepository;
         private final BookingRepository bookingRepository;
+        private final EmailService emailService;
 
         @Transactional
         public Booking createBooking(BookingRequestDTO requestDTO, String borrowerEmail){
@@ -71,6 +72,25 @@ public class BookingService {
                 throw new IllegalArgumentException("Owner can only set status to APPROVED or DECLINED.");
 
             booking.setStatus(newStatus);
-            return bookingRepository.save(booking);
+            Booking savedBooking = bookingRepository.save(booking);
+            if (newStatus == BookingStatus.APPROVED) {
+                try {
+                    User borrower = booking.getBorrower();
+                    Tool tool = booking.getTool();
+
+                    String to = borrower.getEmail();
+                    String subject = "Your ToolSwap Request was Approved!";
+                    String text = "Hi " + borrower.getName() + ",\n\n"
+                            + "Your request to borrow '" + tool.getName() + "' "
+                            + "from " + tool.getOwner().getName() + " has been approved.\n\n"
+                            + "You can now coordinate a pickup time and location.\n\n"
+                            + "Happy swapping!\n- The ToolSwap Team";
+
+                    emailService.sendSimpleMessage(to, subject, text);
+                } catch (Exception e) {
+                    System.err.println("Failed to prepare or send approval email: " + e.getMessage());
+                }
+            }
+            return savedBooking;
         }
 }

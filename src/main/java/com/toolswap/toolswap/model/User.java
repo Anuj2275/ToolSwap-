@@ -1,6 +1,7 @@
 package com.toolswap.toolswap.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class User {
 
     @NotEmpty
     @Column(nullable = false, unique = true)
+//    @Email
     private String email;
 
     @NotEmpty

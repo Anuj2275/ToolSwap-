@@ -219,7 +219,7 @@ const AddToolPage = () => {
                           onChange={handleImageChange}
                         />
                       </label>
-                      <p className="pl-1">or drag and drop</p>
+                      {/* <p className="pl-1">or drag and drop</p> */}
                     </div>
                     <p className="text-xs text-muted-light dark:text-muted-dark">
                       PNG, JPG, JPEG up to 5MB

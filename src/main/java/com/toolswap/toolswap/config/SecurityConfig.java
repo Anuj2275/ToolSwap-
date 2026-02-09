@@ -1,12 +1,14 @@
 package com.toolswap.toolswap.config;
 
 import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,9 +23,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.toolswap.toolswap.service.AppUserDetailsService;
-import lombok.RequiredArgsConstructor;
 
-import static org.springframework.security.config.Customizer.withDefaults;
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
@@ -41,7 +42,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Public endpoints
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/tools/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/tools", "/api/tools/**").permitAll()
                         // Specific restricted endpoints (redundant but safe if placed before anyRequest)
                         .requestMatchers(HttpMethod.DELETE, "/api/tools/**").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/tools/**").authenticated()
@@ -80,7 +81,7 @@ public class SecurityConfig {
         // Added standard frontend ports and your netlify URL
         configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:3000", "https://toolswapproto.netlify.app"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Cache-Control"));
+        configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

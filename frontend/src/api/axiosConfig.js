@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
 //    baseURL:'https://toolswap-backend.onrender.com',
-    baseURL:'https://toolswap.onrender.com',
+    baseURL:'https://toolswap.onrender.com/api',
 })
 
 

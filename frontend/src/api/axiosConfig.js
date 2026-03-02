@@ -3,7 +3,8 @@ import axios from 'axios';
 const api = axios.create({
 //    baseURL:'https://toolswap-backend.onrender.com',
     // baseURL:'https://toolswap.onrender.com/api',
-    baseURL:'https://toolswap-production.up.railway.app',
+//    baseURL:'https://toolswap-production.up.railway.app',
+    baseURL:'http://localhost:8080/api'
 })
 
 
@@ -21,10 +22,10 @@ api.interceptors.request.use(
         return Promise.reject(error);
     }
 )
-
-app.get('/tial/:x/:y',(req,res)=>{
-    
-})
+//
+//app.get('/tial/:x/:y',(req,res)=>{
+//
+//})
 
 
 // new thing, and its optional 

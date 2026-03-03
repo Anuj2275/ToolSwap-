@@ -5,7 +5,7 @@ const api = axios.create({
     // baseURL:'https://toolswap.onrender.com/api',
 //    baseURL:'https://toolswap-production.up.railway.app',
 //    baseURL:'http://localhost:8080/api'
-    baseUrl:'https://toolswap-1.onrender.com/api',
+    baseURL:'https://toolswap-1.onrender.com/api',
     headers: {
         'Content-Type': 'application/json',
       },

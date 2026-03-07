@@ -79,7 +79,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         // Added standard frontend ports and your netlify URL
-        configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:3000", "https://toolswapproto.netlify.app"));
+        configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:3000", "https://tool-swap-sepia.vercel.app"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);

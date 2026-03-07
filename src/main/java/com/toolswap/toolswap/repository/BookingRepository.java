@@ -12,4 +12,5 @@ public interface BookingRepository extends JpaRepository<Booking,Long> {
     List<Booking> findByBorrowerIdOrToolOwnerId(Long borrowerId, Long ownerId);
     void deleteAllByToolId(Long toolId);
     List<Booking> findByStatusAndEndDateBetween(BookingStatus status, LocalDateTime start, LocalDateTime end);
+    boolean existsByToolIdAndStatusIn(Long toolId, List<BookingStatus> statuses);
 }

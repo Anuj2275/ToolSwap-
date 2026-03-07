@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         // Public endpoints
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/ws/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/tools", "/api/tools/**").permitAll()
                         // Specific restricted endpoints (redundant but safe if placed before anyRequest)
                         .requestMatchers(HttpMethod.DELETE, "/api/tools/**").authenticated()
